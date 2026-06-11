@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { AdminSidebar } from "@/components/admin/admin-sidebar";
+import { AdminHelpButton } from "@/components/admin/admin-help-button";
 import { ToastProvider } from "@/components/ui/toast";
 import Link from "next/link";
 import { ArrowLeft, FileText } from "lucide-react";
@@ -54,6 +55,7 @@ export default async function AdminLayout({
                 <FileText className="h-4 w-4 text-primary" />
                 <span className="font-semibold text-sm">{APP_NAME}</span>
               </Link>
+              <AdminHelpButton />
             </div>
           </header>
 
