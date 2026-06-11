@@ -9,7 +9,7 @@ import { DropdownMenu, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuLabe
 import { SearchBar } from "@/components/search/search-bar";
 import { APP_NAME, NAV_ITEMS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import { FileText, Menu, X } from "lucide-react";
+import { FileText, Menu, X, LayoutDashboard } from "lucide-react";
 import { useState } from "react";
 
 export function Header() {
@@ -56,9 +56,10 @@ export function Header() {
           {user ? (
             <div className="flex items-center gap-3">
               {profile?.role === "admin" && (
-                <Link href="/admin" className="hidden sm:block">
-                  <Button variant="ghost" size="sm">
-                    Admin
+                <Link href="/admin">
+                  <Button variant="outline" size="sm" className="gap-1.5 border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground">
+                    <LayoutDashboard className="h-4 w-4" />
+                    <span className="hidden sm:inline">Dashboard</span>
                   </Button>
                 </Link>
               )}
@@ -133,6 +134,16 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
+            {profile?.role === "admin" && (
+              <Link
+                href="/admin"
+                className="flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md text-primary hover:bg-primary/10"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <LayoutDashboard className="h-4 w-4" />
+                Admin Dashboard
+              </Link>
+            )}
           </div>
         </div>
       )}
