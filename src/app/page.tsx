@@ -13,12 +13,11 @@ import { APP_NAME } from "@/lib/constants";
 export default async function HomePage() {
   const supabase = await createClient();
 
-  // Fetch featured/recent documents
+  // Fetch featured/recent documents (RLS handles per-user visibility)
   const { data: recentDocs } = await supabase
     .from("documents")
     .select("*, categories(name, slug)")
     .eq("status", "published")
-    .eq("is_public", true)
     .order("created_at", { ascending: false })
     .limit(6);
 

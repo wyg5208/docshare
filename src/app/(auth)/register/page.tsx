@@ -41,6 +41,7 @@ export default function RegisterPage() {
       email,
       password,
       options: {
+        emailRedirectTo: `${window.location.origin}/api/auth/callback`,
         data: {
           username,
           full_name: username,
@@ -54,8 +55,8 @@ export default function RegisterPage() {
       return;
     }
 
-    toast("success", "Account created! Please check your email to confirm.");
-    router.push("/login");
+    toast("success", "We've sent a verification link to your email.");
+    router.push("/verify-email");
   };
 
   return (

@@ -30,9 +30,35 @@ export async function updateSession(request: NextRequest) {
     }
   );
 
+  // Skip auth checks for API routes (they handle their own auth)
+  if (request.nextUrl.pathname.startsWith("/api")) {
+    return supabaseResponse;
+  }
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  // Email verification gate - block unverified users from any non-auth route
+  if (user && user.email_confirmed_at === null) {
+    const allowedForUnverified = [
+      "/verify-email",
+      "/login",
+      "/register",
+      "/forgot-password",
+      "/api/auth/callback",
+    ];
+    const isAllowed = allowedForUnverified.some(
+      (p) =>
+        request.nextUrl.pathname === p ||
+        request.nextUrl.pathname.startsWith(p + "/")
+    );
+    if (!isAllowed) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/verify-email";
+      return NextResponse.redirect(url);
+    }
+  }
 
   // Protected routes - redirect to login if not authenticated
   const protectedPaths = ["/admin", "/bookmarks", "/settings"];

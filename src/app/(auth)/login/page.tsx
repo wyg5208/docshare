@@ -35,6 +35,16 @@ export default function LoginPage() {
       return;
     }
 
+    // Email verification gate - send unverified users to /verify-email
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (user && user.email_confirmed_at === null) {
+      toast("info", "Please verify your email to continue.");
+      router.push("/verify-email");
+      return;
+    }
+
     // Log the login
     await supabase.from("access_logs").insert({
       action: "login",

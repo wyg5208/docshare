@@ -1,214 +1,310 @@
-# DocShare 用户操作指南 / User Guide
+# DocShare — User Guide
+
+**Website:** [https://docshare.wyg.life](https://docshare.wyg.life)
 
 ---
 
-## 目录 / Table of Contents
+## Table of Contents
 
-1. [注册与登录 / Registration & Login](#1-注册与登录--registration--login)
-2. [浏览文档 / Browsing Documents](#2-浏览文档--browsing-documents)
-3. [搜索文档 / Searching Documents](#3-搜索文档--searching-documents)
-4. [查看文档 / Viewing Documents](#4-查看文档--viewing-documents)
-5. [收藏与书签 / Bookmarks](#5-收藏与书签--bookmarks)
-6. [个人设置 / Account Settings](#6-个人设置--account-settings)
-7. [管理员后台 / Admin Panel](#7-管理员后台--admin-panel)
-8. [支持的预览格式 / Supported Preview Formats](#8-支持的预览格式--supported-preview-formats)
-
----
-
-## 1. 注册与登录 / Registration & Login
-
-### 注册 / Register
-1. 点击页面右上角的 **Sign Up** / Click **Sign Up** in the top-right corner
-2. 填写用户名、邮箱和密码（至少 6 位）/ Enter username, email, and password (min 6 characters)
-3. 点击 **Create Account** / Click **Create Account**
-4. 注册成功后跳转到登录页 / After registration, you will be redirected to the login page
-
-### 登录 / Login
-1. 点击 **Sign In** / Click **Sign In**
-2. 输入邮箱和密码 / Enter email and password
-3. 点击 **Sign In** / Click **Sign In**
-
-### 忘记密码 / Forgot Password
-1. 在登录页点击 **Forgot your password?** / Click **Forgot your password?** on the login page
-2. 输入注册邮箱 / Enter your registered email
-3. 查收邮件，点击重置链接完成密码修改 / Check your inbox and click the reset link
-
-### 测试账号 / Test Accounts
-
-| 角色 / Role | 邮箱 / Email | 密码 / Password |
-|---|---|---|
-| 管理员 / Admin | admin@docshare.dev | Admin123! |
-| 编辑者 / Editor | editor@docshare.dev | Editor123! |
-| 查看者 / Viewer | viewer@docshare.dev | Viewer123! |
+1. [Getting Started](#1-getting-started)
+2. [Creating an Account](#2-creating-an-account)
+3. [Logging In](#3-logging-in)
+4. [Browsing Documents](#4-browsing-documents)
+5. [Searching for Documents](#5-searching-for-documents)
+6. [Viewing a Document](#6-viewing-a-document)
+7. [Downloading Documents](#7-downloading-documents)
+8. [Bookmarks (Favorites)](#8-bookmarks-favorites)
+9. [Managing Your Profile](#9-managing-your-profile)
+10. [Changing Your Password](#10-changing-your-password)
+11. [Understanding Document Types & Previews](#11-understanding-document-types--previews)
+12. [FAQ — Frequently Asked Questions](#12-faq--frequently-asked-questions)
 
 ---
 
-## 2. 浏览文档 / Browsing Documents
+## 1. Getting Started
 
-### 首页 / Home Page (`/`)
-- 查看分类概览和最新文档 / View category overview and latest documents
-- 点击分类卡片进入分类详情 / Click a category card to view its details
+DocShare is a document sharing platform that allows you to browse, search, preview, and download documents organized by categories and tags.
 
-### 浏览页 / Browse Page (`/browse`)
-- 查看所有分类（网格布局）/ View all categories in a grid layout
-- 查看最新发布的文档 / View recently published documents
-- 点击分类名称进入子分类 / Click a category name to drill into subcategories
+**What you can do:**
+- Browse documents by category or tag
+- Search documents by title, description, or filename
+- Preview documents online (PDF, images, video, audio, HTML, text)
+- Download files to your device
+- Bookmark your favorite documents for quick access
+- Personalize your profile and avatar
 
-### 分类详情 / Category Details (`/browse/[category]`)
-- 查看分类描述和子分类 / View category description and subcategories
-- 浏览该分类下所有已发布文档 / Browse all published documents in this category
-
-### 标签浏览 / Tag Browsing (`/tags`)
-- 查看所有标签及其文档数量 / View all tags with document counts
-- 点击标签查看关联文档 / Click a tag to see related documents
+**No account needed** to browse public documents. However, you need to log in to bookmark documents, track your activity, and access private documents.
 
 ---
 
-## 3. 搜索文档 / Searching Documents
+## 2. Creating an Account
 
-### 快速搜索 / Quick Search
-- 使用页面顶部的搜索栏 / Use the search bar at the top of the page
-- 输入关键词后按 Enter / Type keywords and press Enter
+1. Click **Sign Up** in the top-right corner of any page
+2. Fill in the registration form:
+   - **Username**: Your unique identifier (letters, numbers, underscores)
+   - **Email**: A valid email address
+   - **Password**: At least 6 characters
+   - **Confirm Password**: Re-enter your password
+3. Click **Create Account**
+4. You will be redirected to the login page
 
-### 高级搜索 / Advanced Search (`/search`)
-- 支持按标题、描述、文件名搜索 / Search by title, description, or filename
-- 使用文件类型筛选（PDF / 图片 / 视频 / 音频 / HTML / 文本）/ Filter by file type
-- 搜索结果以卡片形式展示 / Results displayed as document cards
-
----
-
-## 4. 查看文档 / Viewing Documents
-
-### 文档详情 / Document Details (`/doc/[slug]`)
-- **在线预览**：PDF、图片、视频、音频、HTML、纯文本均可在线预览
-- **Online Preview**: PDF, images, videos, audio, HTML, and plain text can be previewed online
-- **下载**：点击下载按钮保存文件 / **Download**: Click the download button to save
-- **收藏**：点击书签图标添加到收藏 / **Bookmark**: Click the bookmark icon to save
-
-### 文档信息 / Document Info
-右侧面板显示 / Right sidebar shows:
-- 文件名、类型、大小 / Filename, type, size
-- 上传时间 / Upload date
-- 浏览量与下载量 / View and download counts
-- 所属分类 / Category
-- 上传者信息 / Uploader info
-- 关联标签 / Associated tags
+> **Note:** New accounts are created with the **Viewer** role, which allows you to browse and download all public documents.
 
 ---
 
-## 5. 收藏与书签 / Bookmarks
+## 3. Logging In
 
-> 需要登录 / Login required
+1. Click **Sign In** in the top-right corner
+2. Enter your email and password
+3. Click **Sign In**
+4. You will be redirected to the home page
 
-1. 在文档详情页点击书签图标 ⭐ 添加收藏 / Click the bookmark icon on the document page
-2. 再次点击取消收藏 / Click again to remove
-3. 访问 `/bookmarks` 查看所有收藏 / Visit `/bookmarks` to view all bookmarks
-4. 悬停书签卡片可快速移除 / Hover over a bookmark card to remove quickly
+Once logged in, you will see your avatar and display name in the top-right corner. Click on your name to access:
+- **Bookmarks** — your saved documents
+- **Settings** — your profile and security settings
+- **Sign Out** — log out of your account
 
----
+### Forgot Your Password?
 
-## 6. 个人设置 / Account Settings
+1. On the login page, click **Forgot your password?**
+2. Enter the email address associated with your account
+3. Check your email inbox for a password reset link
+4. Click the link and enter your new password
 
-> 需要登录 / Login required  
-> 访问 `/settings` / Visit `/settings`
-
-### 个人资料 / Profile
-- **头像**：点击上传，支持 JPG/PNG/GIF/WebP，最大 5MB
-- **Avatar**: Click to upload, supports JPG/PNG/GIF/WebP, max 5MB
-- **显示名称**：修改显示名称 / **Display Name**: Change your display name
-- **个人简介**：添加或修改简介 / **Bio**: Add or edit your bio
-- 邮箱和用户名不可修改 / Email and username cannot be changed
-
-### 安全 / Security
-- 输入当前密码和新密码（至少 8 位）/ Enter current password and new password (min 8 characters)
-- 点击 **Change Password** 确认 / Click **Change Password** to confirm
+> If you don't receive the email, check your spam/junk folder.
 
 ---
 
-## 7. 管理员后台 / Admin Panel
+## 4. Browsing Documents
 
-> 仅管理员可访问 / Admin only  
-> 访问 `/admin` / Visit `/admin`
+### Home Page
 
-### 仪表盘 / Dashboard
-- 查看统计概览：文档数、用户数、浏览量、下载量
-- View stats: total documents, users, page views, downloads
-- 查看最近用户活动 / View recent user activities
+The home page ([docshare.wyg.life](https://docshare.wyg.life)) shows:
+- **Categories grid**: Click any category to see its documents
+- **Latest documents**: The most recently published documents
 
-### 文档管理 / Documents (`/admin/documents`)
-- 查看所有文档列表（名称、分类、状态、大小、浏览量）
-- View all documents (name, category, status, size, views)
-- 编辑或删除文档 / Edit or delete documents
-- 点击 **Upload Document** 上传新文档 / Click **Upload Document** to upload new files
+### Browse Page
 
-### 上传文档 / Upload Document (`/admin/documents/new`)
-1. 拖拽或点击上传文件（最大 500MB）/ Drag & drop or click to upload (max 500MB)
-2. 填写标题和描述 / Enter title and description
-3. 选择分类 / Select a category
-4. 选择标签（可多选）/ Select tags (multiple allowed)
-5. 设置状态：草稿（Draft）或已发布（Published）/ Set status: Draft or Published
-6. 设置是否公开 / Set visibility (public or private)
-7. 点击 **Upload & Publish** / Click **Upload & Publish**
+Click **Browse** in the top navigation bar to see:
+- All available categories in a grid layout
+- The latest published documents below
 
-### 分类管理 / Categories (`/admin/categories`)
-- 创建/编辑/删除分类 / Create, edit, or delete categories
-- 支持父子层级结构 / Supports parent-child hierarchy
-- 设置名称、描述和父分类 / Set name, description, and parent category
+### Category Pages
 
-### 标签管理 / Tags (`/admin/tags`)
-- 创建/编辑/删除标签 / Create, edit, or delete tags
-- 选择 8 种预设颜色 / Choose from 8 preset colors
+Click a category to view:
+- Category name and description
+- Subcategories (if any) — click to drill down
+- All published documents in that category
 
-### 用户管理 / Users (`/admin/users`)
-- 查看所有用户列表 / View all users
-- 修改用户角色：Admin / Editor / Viewer / Change user roles
-- 激活或禁用用户 / Activate or disable users
+Categories can be nested. Use the breadcrumb trail at the top to navigate back to parent categories.
 
-### 权限管理 / Permissions (`/admin/permissions`)
-- 为特定用户授予文档或分类级别的权限
-- Grant document or category-level permissions to specific users
-- 权限类型：View（查看）/ Edit（编辑）/ Manage（管理）
-- Permission types: View / Edit / Manage
+### Tag Pages
 
-### 分析统计 / Analytics (`/admin/analytics`)
-- 查看浏览量、下载量、登录次数 / View page views, downloads, login counts
-- 查看活动日志，支持按类型筛选 / View activity logs with type filtering
+Click **Tags** in the top navigation bar to see all available tags. Each tag shows the number of associated documents.
+
+Click a tag to view all documents with that tag.
 
 ---
 
-## 8. 支持的预览格式 / Supported Preview Formats
+## 5. Searching for Documents
 
-| 文件类型 / File Type | 格式 / Formats | 预览方式 / Preview |
-|---|---|---|
-| 文档 / Documents | PDF | 内嵌 PDF 阅读器 / Embedded PDF viewer |
-| 图片 / Images | JPG, PNG, GIF, WebP, SVG | 图片查看器 / Image viewer |
-| 视频 / Video | MP4, WebM, AVI | 视频播放器 / Video player |
-| 音频 / Audio | MP3, WAV, OGG, WebM | 音频播放器 / Audio player |
-| 网页 / Web | HTML | iframe 沙箱 / iframe sandbox |
-| 文本 / Text | TXT | 代码预览 / Code preview |
-| Word 文档 / Word | DOC, DOCX | 仅下载 / Download only |
-| 其他 / Other | — | 仅下载 / Download only |
+### Quick Search
+
+Use the **search bar** at the top of any page:
+1. Type keywords (title, description, or filename)
+2. Press **Enter** or click the search icon
+3. You will be taken to the search results page
+
+### Advanced Search
+
+On the search page ([docshare.wyg.life/search](https://docshare.wyg.life/search)):
+- Enter your search query
+- Use the **file type filter** dropdown to narrow results:
+  - PDF
+  - Images
+  - Video
+  - Audio
+  - HTML
+  - Text
+
+Search results are displayed as document cards showing the title, category, file type, and size.
+
+> **Tip:** You can also search by navigating directly to `docshare.wyg.life/search?q=your+keywords`
 
 ---
 
-## 常见问题 / FAQ
+## 6. Viewing a Document
 
-**Q: 为什么我无法访问 `/admin`？**  
-**Q: Why can't I access `/admin`?**  
-A: 只有 Admin 角色的用户可以访问后台。请使用管理员账号登录。  
-A: Only users with the Admin role can access the admin panel. Please log in with an admin account.
+Click any document card or title to open the **document detail page**.
 
-**Q: 文档上传后在哪里显示？**  
-**Q: Where do uploaded documents appear?**  
-A: 已发布且公开的文档会出现在对应分类和浏览页中。草稿仅管理员可见。  
-A: Published and public documents appear in their category and the browse page. Drafts are only visible to admins.
+### Document Preview
 
-**Q: 如何收藏文档？**  
-**Q: How do I bookmark a document?**  
-A: 登录后，在文档详情页点击书签图标即可。  
-A: Log in, then click the bookmark icon on the document detail page.
+The page displays an **inline preview** of the document (when supported):
+- **PDF files**: Scrollable PDF viewer with page navigation
+- **Images**: Full-size image viewer
+- **Video**: Built-in video player with controls
+- **Audio**: Audio player with play/pause and progress bar
+- **HTML files**: Embedded web page preview
+- **Text files**: Formatted text display
 
-**Q: 上传文件有大小限制吗？**  
-**Q: Is there a file size limit?**  
-A: 单个文件最大 500MB。  
-A: Maximum 500MB per file.
+> For file types that cannot be previewed (e.g., Word documents), a download prompt is shown instead.
+
+### Document Information
+
+The right sidebar shows:
+- **File name** and **type**
+- **File size**
+- **Upload date**
+- **View count** and **download count**
+- **Category** (clickable to browse the category)
+- **Uploaded by** (uploader's display name)
+- **Tags** (clickable to find related documents)
+
+---
+
+## 7. Downloading Documents
+
+1. On the document detail page, click the **Download** button
+2. The file will be saved to your device's default download folder
+3. Download counts are tracked for analytics
+
+> **Note:** You do not need to be logged in to download public documents.
+
+---
+
+## 8. Bookmarks (Favorites)
+
+> **Login required** to use bookmarks.
+
+### Adding a Bookmark
+
+1. Navigate to a document's detail page
+2. Click the **bookmark icon** (⭐) next to the download button
+3. The icon will change to indicate the document is bookmarked
+
+### Viewing Your Bookmarks
+
+- Click your avatar in the top-right corner → **Bookmarks**
+- Or navigate to [docshare.wyg.life/bookmarks](https://docshare.wyg.life/bookmarks)
+- All your bookmarked documents are displayed in a grid
+
+### Removing a Bookmark
+
+- **From a document page**: Click the bookmark icon again
+- **From the bookmarks page**: Hover over the document card and click the **×** (remove) button
+
+### Empty Bookmarks
+
+If you haven't bookmarked any documents yet, the page will show a message with a link to browse documents.
+
+---
+
+## 9. Managing Your Profile
+
+> **Login required.**
+> Navigate to [docshare.wyg.life/settings](https://docshare.wyg.life/settings)
+
+### Profile Tab
+
+- **Avatar**: Click the avatar image to upload a new one
+  - Supported formats: JPG, PNG, GIF, WebP
+  - Maximum size: 5MB
+  - Recommended: square image (e.g., 256×256)
+- **Display Name**: Change how your name appears to others
+- **Bio**: Add a short description about yourself
+- **Email** and **Username**: Displayed but cannot be changed
+
+Click **Save Changes** to update your profile.
+
+---
+
+## 10. Changing Your Password
+
+> Navigate to **Settings** → **Security** tab
+
+1. Enter your **current password**
+2. Enter your **new password** (minimum 8 characters)
+3. Confirm the new password
+4. Click **Change Password**
+
+> **Tip:** Use a strong password with a mix of uppercase, lowercase, numbers, and special characters.
+
+---
+
+## 11. Understanding Document Types & Previews
+
+| File Type | Formats | Can Preview Online? |
+|-----------|---------|---------------------|
+| PDF documents | .pdf | ✅ Yes — full PDF viewer |
+| Images | .jpg, .png, .gif, .webp, .svg | ✅ Yes — image viewer |
+| Video | .mp4, .webm, .avi | ✅ Yes — video player |
+| Audio | .mp3, .wav, .ogg | ✅ Yes — audio player |
+| Web pages | .html | ✅ Yes — embedded preview |
+| Text files | .txt | ✅ Yes — text display |
+| Word documents | .doc, .docx | ❌ No — download only |
+| Other files | Various | ❌ No — download only |
+
+When a file cannot be previewed online, you will see a file icon with a **Download** button instead.
+
+---
+
+## 12. FAQ — Frequently Asked Questions
+
+### Do I need an account to use DocShare?
+
+No. You can browse and download all **public** documents without an account. However, you need to log in to:
+- Bookmark documents
+- Access private (non-public) documents
+- Have your activity tracked for personalized features
+
+### How do I find a specific document?
+
+Use the **search bar** at the top of any page. You can search by:
+- Document title
+- Description keywords
+- File name
+- Filter by file type on the search results page
+
+You can also browse by **category** or **tag** to narrow down results.
+
+### What's the maximum file size for uploads?
+
+The maximum upload size is **500MB** per file. (Note: only users with upload permissions can upload documents.)
+
+### Why can't I preview a document?
+
+Some file formats (like Word .doc/.docx) do not support inline preview. You can still **download** the file and open it on your device.
+
+### I forgot my password. What should I do?
+
+1. Go to the login page
+2. Click **Forgot your password?**
+3. Enter your email address
+4. Check your inbox for a reset link
+
+### Who can see my profile information?
+
+Your **display name** and **avatar** are visible to other users when they view documents you have uploaded. Your email address and bio are private.
+
+### How do I report a problem or request a feature?
+
+Contact your system administrator or the DocShare support team.
+
+---
+
+## Quick Links
+
+| Page | URL |
+|------|-----|
+| Home | [docshare.wyg.life](https://docshare.wyg.life) |
+| Browse | [docshare.wyg.life/browse](https://docshare.wyg.life/browse) |
+| Tags | [docshare.wyg.life/tags](https://docshare.wyg.life/tags) |
+| Search | [docshare.wyg.life/search](https://docshare.wyg.life/search) |
+| Login | [docshare.wyg.life/login](https://docshare.wyg.life/login) |
+| Register | [docshare.wyg.life/register](https://docshare.wyg.life/register) |
+| Bookmarks | [docshare.wyg.life/bookmarks](https://docshare.wyg.life/bookmarks) |
+| Settings | [docshare.wyg.life/settings](https://docshare.wyg.life/settings) |
+
+---
+
+*DocShare User Guide — Last updated: June 2026*

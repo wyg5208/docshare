@@ -74,7 +74,10 @@ export default function AdminPermissionsPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold">Permissions</h1>
-        <p className="text-muted-foreground">Control user access to documents and categories</p>
+        <p className="text-muted-foreground">
+          Documents are private by default. Grant explicit access here, or mark a document as
+          &quot;Publicly accessible&quot; on its edit page to expose it to all signed-in users.
+        </p>
       </div>
 
       {/* Add Permission Form */}
@@ -175,7 +178,8 @@ export default function AdminPermissionsPage() {
             </div>
           ) : (
             <p className="text-center text-muted-foreground py-8">
-              No custom permissions set. All public documents are visible to everyone.
+              No explicit permissions yet. Documents marked as &quot;Publicly accessible&quot; are
+              visible to every signed-in user; all other documents are hidden until you grant access here.
             </p>
           )}
         </CardContent>

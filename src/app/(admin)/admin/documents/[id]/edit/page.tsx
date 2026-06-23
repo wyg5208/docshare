@@ -30,7 +30,7 @@ export default function EditDocumentPage() {
   const [description, setDescription] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [status, setStatus] = useState<"draft" | "published">("published");
-  const [isPublic, setIsPublic] = useState(true);
+  const [isPublic, setIsPublic] = useState(false);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const [newFile, setNewFile] = useState<File | null>(null);
@@ -295,17 +295,24 @@ export default function EditDocumentPage() {
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                id="isPublic"
-                checked={isPublic}
-                onChange={(e) => setIsPublic(e.target.checked)}
-                className="rounded border-input"
-              />
-              <Label htmlFor="isPublic" className="text-sm cursor-pointer">
-                Publicly accessible
-              </Label>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id="isPublic"
+                  checked={isPublic}
+                  onChange={(e) => setIsPublic(e.target.checked)}
+                  className="rounded border-input"
+                />
+                <Label htmlFor="isPublic" className="text-sm cursor-pointer">
+                  Publicly accessible
+                </Label>
+              </div>
+              <p className="text-xs text-muted-foreground pl-6">
+                When unchecked, only users explicitly granted access via
+                <span className="mx-1 font-medium">Permissions</span>
+                will see this document.
+              </p>
             </div>
           </CardContent>
         </Card>
