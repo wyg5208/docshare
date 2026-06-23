@@ -2,6 +2,8 @@ import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 import { DocumentCard } from "@/components/document/document-card";
 import { Badge } from "@/components/ui/badge";
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -36,18 +38,20 @@ export default async function TagPage({ params }: TagPageProps) {
 
   let documents = [];
   if (docIds.length > 0) {
+    // RLS handles per-user visibility (public docs OR explicitly granted)
     const { data } = await supabase
       .from("documents")
       .select("*, categories(name, slug)")
       .in("id", docIds)
       .eq("status", "published")
-      .eq("is_public", true)
       .order("created_at", { ascending: false });
     documents = data || [];
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+    <>
+      <Header />
+      <main className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-1 text-sm text-muted-foreground mb-6">
         <Link href="/tags" className="hover:text-foreground">Tags</Link>
@@ -84,6 +88,8 @@ export default async function TagPage({ params }: TagPageProps) {
           <p>No documents with this tag yet.</p>
         </div>
       )}
-    </div>
+      </main>
+      <Footer />
+    </>
   );
 }

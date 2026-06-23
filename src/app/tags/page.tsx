@@ -1,5 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { Badge } from "@/components/ui/badge";
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
 import Link from "next/link";
 import { Tag } from "lucide-react";
 
@@ -14,7 +16,9 @@ export default async function TagsPage() {
     .order("name");
 
   return (
-    <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+    <>
+      <Header />
+      <main className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
       <h1 className="text-3xl font-bold mb-8">Tags</h1>
 
       {tags && tags.length > 0 ? (
@@ -42,6 +46,8 @@ export default async function TagsPage() {
           <p>No tags available yet.</p>
         </div>
       )}
-    </div>
+      </main>
+      <Footer />
+    </>
   );
 }

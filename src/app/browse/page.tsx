@@ -1,6 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
 import { CategoryCard } from "@/components/category/category-card";
 import { DocumentCard } from "@/components/document/document-card";
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
 import { ITEMS_PER_PAGE } from "@/lib/constants";
 
 export const dynamic = "force-dynamic";
@@ -15,17 +17,19 @@ export default async function BrowsePage() {
     .eq("is_public", true)
     .order("sort_order");
 
-  // Fetch recent public documents
+  // Fetch recent documents (RLS handles per-user visibility:
+  // public docs OR docs the user has been explicitly granted access to)
   const { data: documents } = await supabase
     .from("documents")
     .select("*, categories(name, slug)")
     .eq("status", "published")
-    .eq("is_public", true)
     .order("created_at", { ascending: false })
     .limit(ITEMS_PER_PAGE);
 
   return (
-    <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+    <>
+      <Header />
+      <main className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
       <h1 className="text-3xl font-bold mb-8">Browse Documents</h1>
 
       {/* Categories Grid */}
@@ -55,6 +59,8 @@ export default async function BrowsePage() {
           </div>
         )}
       </section>
-    </div>
+      </main>
+      <Footer />
+    </>
   );
 }

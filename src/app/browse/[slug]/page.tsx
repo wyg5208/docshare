@@ -1,6 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 import { DocumentCard } from "@/components/document/document-card";
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
 import Link from "next/link";
 import { ChevronRight, FolderOpen } from "lucide-react";
 
@@ -33,17 +35,18 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     .eq("is_public", true)
     .order("sort_order");
 
-  // Fetch documents in this category
+  // Fetch documents in this category (RLS handles per-user visibility)
   const { data: documents } = await supabase
     .from("documents")
     .select("*, categories(name, slug)")
     .eq("category_id", category.id)
     .eq("status", "published")
-    .eq("is_public", true)
     .order("created_at", { ascending: false });
 
   return (
-    <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+    <>
+      <Header />
+      <main className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-1 text-sm text-muted-foreground mb-6">
         <Link href="/browse" className="hover:text-foreground">Browse</Link>
@@ -100,6 +103,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           </div>
         )}
       </section>
-    </div>
+      </main>
+      <Footer />
+    </>
   );
 }
