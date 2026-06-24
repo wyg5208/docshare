@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, useRef, FormEvent } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useAuth } from "@/components/auth-provider";
 import { Button } from "@/components/ui/button";
@@ -27,6 +27,10 @@ export default function SettingsPage() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [changingPassword, setChangingPassword] = useState(false);
+
+  const [selectedFileName, setSelectedFileName] = useState<string>("");
+  const [uploadingAvatar, setUploadingAvatar] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleProfileUpdate = async (e: FormEvent) => {
     e.preventDefault();
@@ -83,11 +87,14 @@ export default function SettingsPage() {
     const file = e.target.files?.[0];
     if (!file || !user) return;
 
+    setSelectedFileName(file.name);
+
     if (file.size > 5 * 1024 * 1024) {
       toast("error", "File must be under 5MB.");
       return;
     }
 
+    setUploadingAvatar(true);
     const ext = file.name.split(".").pop();
     const fileName = `${user.id}/avatar.${ext}`;
 
@@ -97,6 +104,7 @@ export default function SettingsPage() {
 
     if (uploadError) {
       toast("error", uploadError.message);
+      setUploadingAvatar(false);
       return;
     }
 
@@ -110,6 +118,7 @@ export default function SettingsPage() {
 
     await refreshProfile();
     toast("success", "Your profile picture has been changed.");
+    setUploadingAvatar(false);
   };
 
   return (
@@ -147,13 +156,26 @@ export default function SettingsPage() {
                   alt={profile?.display_name || "User"}
                   size="lg"
                 />
-                <div>
+                <div className="flex items-center gap-3">
                   <input
+                    ref={fileInputRef}
                     type="file"
                     accept="image/*"
                     onChange={handleAvatarUpload}
-                    className="block w-full text-sm text-muted-foreground file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90"
+                    className="hidden"
                   />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={uploadingAvatar}
+                  >
+                    {uploadingAvatar && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    Choose File
+                  </Button>
+                  <span className="text-sm text-muted-foreground truncate max-w-[200px]">
+                    {selectedFileName || "No file chosen"}
+                  </span>
                 </div>
               </div>
             </CardContent>

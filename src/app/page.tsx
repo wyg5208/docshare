@@ -13,6 +13,24 @@ import { APP_NAME } from "@/lib/constants";
 export default async function HomePage() {
   const supabase = await createClient();
 
+  // Fetch editable hero copy from site_settings (falls back to defaults)
+  const { data: settings } = await supabase
+    .from("site_settings")
+    .select("key, value")
+    .in("key", ["hero_title_main", "hero_title_highlight", "hero_subtitle"]);
+
+  const settingsMap = Object.fromEntries(
+    (settings || []).map((s: { key: string; value: string | null }) => [s.key, s.value])
+  );
+
+  const heroTitleMain =
+    settingsMap.hero_title_main || "Your Documents,";
+  const heroTitleHighlight =
+    settingsMap.hero_title_highlight || "Organized & Accessible";
+  const heroSubtitle =
+    settingsMap.hero_subtitle ||
+    "A modern platform to publish, organize, and share your documents. Support for PDFs, images, videos, audio files, and more.";
+
   // Fetch featured/recent documents (RLS handles per-user visibility)
   const { data: recentDocs } = await supabase
     .from("documents")
@@ -37,12 +55,11 @@ export default async function HomePage() {
           <div className="container mx-auto px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-36">
             <div className="mx-auto max-w-3xl text-center">
               <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-                Your Documents,{" "}
-                <span className="text-primary">Organized & Accessible</span>
+                {heroTitleMain}{" "}
+                <span className="text-primary">{heroTitleHighlight}</span>
               </h1>
-              <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-                A modern platform to publish, organize, and share your documents.
-                Support for PDFs, images, videos, audio files, and more.
+              <p className="mt-6 text-lg text-muted-foreground leading-relaxed whitespace-pre-line">
+                {heroSubtitle}
               </p>
               <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link href="/browse">

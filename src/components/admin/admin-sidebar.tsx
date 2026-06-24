@@ -12,6 +12,7 @@ import {
   Users,
   Shield,
   BarChart3,
+  PenSquare,
   Menu,
   X,
 } from "lucide-react";
@@ -25,6 +26,7 @@ const iconMap: Record<string, React.ElementType> = {
   users: Users,
   shield: Shield,
   "bar-chart-3": BarChart3,
+  "pen-square": PenSquare,
 };
 
 export function AdminSidebar() {

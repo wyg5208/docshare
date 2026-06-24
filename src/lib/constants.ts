@@ -54,4 +54,5 @@ export const ADMIN_NAV_ITEMS = [
   { label: "Users", href: "/admin/users", icon: "users" },
   { label: "Permissions", href: "/admin/permissions", icon: "shield" },
   { label: "Analytics", href: "/admin/analytics", icon: "bar-chart-3" },
+  { label: "Site Content", href: "/admin/site-settings", icon: "pen-square" },
 ];
