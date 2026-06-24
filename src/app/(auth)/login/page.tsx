@@ -1,28 +1,44 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/components/ui/toast";
-import { FileText, Loader2 } from "lucide-react";
+import { FileText, Loader2, AlertTriangle } from "lucide-react";
 import { APP_NAME } from "@/lib/constants";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [accountMessage, setAccountMessage] = useState<string | null>(null);
   const router = useRouter();
+  const searchParams = useSearchParams();
   const supabase = createClient();
   const { toast } = useToast();
+
+  useEffect(() => {
+    // Check for inactive/expired status from middleware redirect
+    if (searchParams.get("inactive") === "true") {
+      setAccountMessage(
+        "Your account has been deactivated. Please contact the administrator to reactivate your account."
+      );
+    } else if (searchParams.get("expired") === "true") {
+      setAccountMessage(
+        "Your account access period has expired. Please contact the administrator to extend your access."
+      );
+    }
+  }, [searchParams]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setAccountMessage(null);
 
     const { error } = await supabase.auth.signInWithPassword({
       email,
@@ -45,6 +61,41 @@ export default function LoginPage() {
       return;
     }
 
+    // Check user active status and validity period
+    if (user) {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("is_active, valid_from, valid_until")
+        .eq("id", user.id)
+        .single();
+
+      if (profile) {
+        // Check if manually disabled
+        if (!profile.is_active) {
+          await supabase.auth.signOut();
+          setAccountMessage(
+            "Your account has been deactivated. Please contact the administrator to reactivate your account."
+          );
+          setLoading(false);
+          return;
+        }
+
+        // Check validity period
+        const now = new Date();
+        const validFrom = profile.valid_from ? new Date(profile.valid_from) : null;
+        const validUntil = profile.valid_until ? new Date(profile.valid_until) : null;
+
+        if ((validFrom && now < validFrom) || (validUntil && now > validUntil)) {
+          await supabase.auth.signOut();
+          setAccountMessage(
+            "Your account access period has expired. Please contact the administrator to extend your access."
+          );
+          setLoading(false);
+          return;
+        }
+      }
+    }
+
     // Log the login
     await supabase.from("access_logs").insert({
       action: "login",
@@ -52,7 +103,7 @@ export default function LoginPage() {
     });
 
     toast("success", "Welcome back!");
-    const redirect = new URLSearchParams(window.location.search).get("redirect");
+    const redirect = searchParams.get("redirect");
     router.push(redirect || "/");
     router.refresh();
   };
@@ -71,6 +122,12 @@ export default function LoginPage() {
       </CardHeader>
       <form onSubmit={handleLogin}>
         <CardContent className="space-y-4">
+          {accountMessage && (
+            <div className="flex items-start gap-3 p-3 rounded-lg bg-amber-50 border border-amber-200 text-amber-800 dark:bg-amber-950/30 dark:border-amber-800 dark:text-amber-200">
+              <AlertTriangle className="h-5 w-5 mt-0.5 flex-shrink-0" />
+              <p className="text-sm">{accountMessage}</p>
+            </div>
+          )}
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
             <Input

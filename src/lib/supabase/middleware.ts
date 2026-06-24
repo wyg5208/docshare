@@ -73,13 +73,53 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  // Admin routes - check role
+  // Check user active status and validity period for protected routes
+  let cachedProfile: { is_active: boolean; valid_from: string | null; valid_until: string | null; role: string } | null = null;
+  if (isProtected && user) {
+    const { data: userProfile } = await supabase
+      .from("profiles")
+      .select("is_active, valid_from, valid_until, role")
+      .eq("id", user.id)
+      .single();
+
+    cachedProfile = userProfile;
+
+    if (userProfile) {
+      // Check if user is manually disabled
+      if (!userProfile.is_active) {
+        const url = request.nextUrl.clone();
+        url.pathname = "/login";
+        url.searchParams.set("inactive", "true");
+        // Sign out the user
+        await supabase.auth.signOut();
+        return NextResponse.redirect(url);
+      }
+
+      // Check validity period (only if user is active)
+      const now = new Date();
+      const validFrom = userProfile.valid_from ? new Date(userProfile.valid_from) : null;
+      const validUntil = userProfile.valid_until ? new Date(userProfile.valid_until) : null;
+
+      const isExpired =
+        (validFrom && now < validFrom) || (validUntil && now > validUntil);
+
+      if (isExpired) {
+        const url = request.nextUrl.clone();
+        url.pathname = "/login";
+        url.searchParams.set("expired", "true");
+        await supabase.auth.signOut();
+        return NextResponse.redirect(url);
+      }
+    }
+  }
+
+  // Admin routes - check role (reuse cached profile if available)
   if (request.nextUrl.pathname.startsWith("/admin") && user) {
-    const { data: profile } = await supabase
+    const profile = cachedProfile || (await supabase
       .from("profiles")
       .select("role")
       .eq("id", user.id)
-      .single();
+      .single()).data;
 
     if (!profile || profile.role !== "admin") {
       const url = request.nextUrl.clone();

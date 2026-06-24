@@ -18,6 +18,8 @@ export interface Database {
           bio: string | null;
           role: "admin" | "editor" | "viewer";
           is_active: boolean;
+          valid_from: string | null;
+          valid_until: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -29,6 +31,8 @@ export interface Database {
           bio?: string | null;
           role?: "admin" | "editor" | "viewer";
           is_active?: boolean;
+          valid_from?: string | null;
+          valid_until?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -40,6 +44,8 @@ export interface Database {
           bio?: string | null;
           role?: "admin" | "editor" | "viewer";
           is_active?: boolean;
+          valid_from?: string | null;
+          valid_until?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -195,7 +201,7 @@ export interface Database {
           user_id: string | null;
           document_id: string | null;
           category_id: string | null;
-          permission: "view" | "edit" | "manage";
+          permission: "view" | "download" | "edit" | "manage";
           granted_by: string | null;
           expires_at: string | null;
           created_at: string;
@@ -205,7 +211,7 @@ export interface Database {
           user_id?: string | null;
           document_id?: string | null;
           category_id?: string | null;
-          permission?: "view" | "edit" | "manage";
+          permission?: "view" | "download" | "edit" | "manage";
           granted_by?: string | null;
           expires_at?: string | null;
           created_at?: string;
@@ -215,7 +221,7 @@ export interface Database {
           user_id?: string | null;
           document_id?: string | null;
           category_id?: string | null;
-          permission?: "view" | "edit" | "manage";
+          permission?: "view" | "download" | "edit" | "manage";
           granted_by?: string | null;
           expires_at?: string | null;
           created_at?: string;
@@ -318,7 +324,7 @@ export interface Database {
           group_id: string;
           document_id: string | null;
           category_id: string | null;
-          permission: "view" | "edit" | "manage";
+          permission: "view" | "download" | "edit" | "manage";
           granted_by: string | null;
           created_at: string;
         };
@@ -327,7 +333,7 @@ export interface Database {
           group_id: string;
           document_id?: string | null;
           category_id?: string | null;
-          permission?: "view" | "edit" | "manage";
+          permission?: "view" | "download" | "edit" | "manage";
           granted_by?: string | null;
           created_at?: string;
         };
@@ -336,7 +342,7 @@ export interface Database {
           group_id?: string;
           document_id?: string | null;
           category_id?: string | null;
-          permission?: "view" | "edit" | "manage";
+          permission?: "view" | "download" | "edit" | "manage";
           granted_by?: string | null;
           created_at?: string;
         };
@@ -367,7 +373,7 @@ export interface Database {
     };
     Enums: {
       user_role: "admin" | "editor" | "viewer";
-      permission_type: "view" | "edit" | "manage";
+      permission_type: "view" | "download" | "edit" | "manage";
       document_status: "draft" | "published" | "archived";
       access_action: "login" | "logout" | "document_view" | "document_download";
     };

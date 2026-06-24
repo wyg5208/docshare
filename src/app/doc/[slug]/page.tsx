@@ -39,6 +39,48 @@ export default async function DocumentPage({ params }: DocumentPageProps) {
 
   const tags = documentTags?.flatMap((dt) => dt.tags) || [];
 
+  // Check if current user can download this document
+  // Admin and document uploader always can download
+  // Otherwise, check permission level >= 'download'
+  const { data: { user } } = await supabase.auth.getUser();
+  let canDownload = false;
+
+  if (user) {
+    // Check if user is admin
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+
+    if (profile?.role === "admin" || document.uploaded_by === user.id) {
+      canDownload = true;
+    } else if (document.is_public) {
+      // Public docs only grant 'view' level, NOT download
+      // Check if user has explicit download+ permission
+      const { data: perms } = await supabase
+        .from("permissions")
+        .select("permission")
+        .eq("user_id", user.id)
+        .or(`document_id.eq.${document.id},category_id.eq.${document.category_id}`);
+
+      const permLevels: Record<string, number> = { view: 1, download: 2, edit: 3, manage: 4 };
+      const maxLevel = perms?.reduce((max, p) => Math.max(max, permLevels[p.permission] || 0), 0) || 0;
+      canDownload = maxLevel >= 2;
+    } else {
+      // Private doc: check explicit permissions
+      const { data: perms } = await supabase
+        .from("permissions")
+        .select("permission")
+        .eq("user_id", user.id)
+        .or(`document_id.eq.${document.id},category_id.eq.${document.category_id}`);
+
+      const permLevels: Record<string, number> = { view: 1, download: 2, edit: 3, manage: 4 };
+      const maxLevel = perms?.reduce((max, p) => Math.max(max, permLevels[p.permission] || 0), 0) || 0;
+      canDownload = maxLevel >= 2;
+    }
+  }
+
   // Generate signed URL for file access
   const { data: urlData } = await supabase.storage
     .from("documents")
@@ -57,7 +99,7 @@ export default async function DocumentPage({ params }: DocumentPageProps) {
             {/* Title & Actions */}
             <div className="mb-6">
               <h1 className="text-2xl sm:text-3xl font-bold mb-4">{document.title}</h1>
-              <DocumentActions document={document} fileUrl={fileUrl} />
+              <DocumentActions document={document} fileUrl={fileUrl} canDownload={canDownload} />
             </div>
 
             {/* Preview */}

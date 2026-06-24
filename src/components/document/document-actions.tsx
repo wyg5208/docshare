@@ -11,9 +11,10 @@ import type { Document } from "@/lib/types";
 interface DocumentActionsProps {
   document: Document;
   fileUrl: string;
+  canDownload?: boolean;
 }
 
-export function DocumentActions({ document, fileUrl }: DocumentActionsProps) {
+export function DocumentActions({ document, fileUrl, canDownload = true }: DocumentActionsProps) {
   const { user } = useAuth();
   const { toast } = useToast();
   const [bookmarked, setBookmarked] = useState(false);
@@ -75,10 +76,17 @@ export function DocumentActions({ document, fileUrl }: DocumentActionsProps) {
 
   return (
     <div className="flex items-center gap-2">
-      <Button onClick={handleDownload} className="gap-2">
-        <Download className="h-4 w-4" />
-        Download
-      </Button>
+      {canDownload ? (
+        <Button onClick={handleDownload} className="gap-2">
+          <Download className="h-4 w-4" />
+          Download
+        </Button>
+      ) : (
+        <Button disabled className="gap-2 opacity-50 cursor-not-allowed" title="You only have view permission for this document">
+          <Download className="h-4 w-4" />
+          Download
+        </Button>
+      )}
       <Button
         variant="outline"
         size="icon"

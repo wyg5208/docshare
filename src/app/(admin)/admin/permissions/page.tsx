@@ -21,7 +21,7 @@ export default function AdminPermissionsPage() {
   const [selectedUser, setSelectedUser] = useState("");
   const [selectedTarget, setSelectedTarget] = useState("");
   const [selectedType, setSelectedType] = useState<"document" | "category">("document");
-  const [selectedPerm, setSelectedPerm] = useState<"view" | "edit" | "manage">("view");
+  const [selectedPerm, setSelectedPerm] = useState<"view" | "download" | "edit" | "manage">("view");
 
   const fetchData = async () => {
     const [{ data: u }, { data: d }, { data: c }, { data: p }] = await Promise.all([
@@ -127,8 +127,9 @@ export default function AdminPermissionsPage() {
             </div>
             <div className="space-y-2">
               <Label>Permission</Label>
-              <Select value={selectedPerm} onChange={(e) => setSelectedPerm(e.target.value as "view" | "edit" | "manage")}>
-                <option value="view">View</option>
+              <Select value={selectedPerm} onChange={(e) => setSelectedPerm(e.target.value as "view" | "download" | "edit" | "manage")}>
+                <option value="view">Only View</option>
+                <option value="download">View &amp; Download</option>
                 <option value="edit">Edit</option>
                 <option value="manage">Manage</option>
               </Select>
@@ -163,7 +164,11 @@ export default function AdminPermissionsPage() {
                         {(perm as Permission & { documents?: { title: string }; categories?: { name: string } }).documents?.title ||
                           (perm as Permission & { documents?: { title: string }; categories?: { name: string } }).categories?.name ||
                           "Unknown"}{" "}
-                        &middot; <span className="capitalize">{perm.permission}</span>
+                        &middot; <span className="capitalize">
+                          {perm.permission === "view" ? "Only View" :
+                           perm.permission === "download" ? "View & Download" :
+                           perm.permission === "edit" ? "Edit" : "Manage"}
+                        </span>
                       </p>
                     </div>
                   </div>

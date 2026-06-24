@@ -27,7 +27,7 @@ export type TagInsert = Database["public"]["Tables"]["tags"]["Insert"];
 
 // Permission types
 export type Permission = Database["public"]["Tables"]["permissions"]["Row"];
-export type PermissionType = "view" | "edit" | "manage";
+export type PermissionType = "view" | "download" | "edit" | "manage";
 
 // Bookmark types
 export type Bookmark = Database["public"]["Tables"]["bookmarks"]["Row"];
