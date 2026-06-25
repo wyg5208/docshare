@@ -46,7 +46,7 @@ export default function AdminPermissionsPage() {
       supabase.from("profiles").select("*").order("username"),
       supabase.from("documents").select("id, title, is_public, category_id").order("title"),
       supabase.from("categories").select("id, name").order("name"),
-      supabase.from("permissions").select("*, profiles(username, role), documents(title), categories(name)"),
+      supabase.from("permissions").select("*, profiles!user_id(username, role), documents!document_id(title), categories!category_id(name)"),
     ]);
     setUsers(u || []);
     setDocuments(d || []);
