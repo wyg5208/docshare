@@ -14,6 +14,7 @@ import { useState } from "react";
 import { useSiteSettings } from "@/components/site-settings-provider";
 import { DynamicIcon } from "@/lib/dynamic-icon";
 import { ThemeSwitcher } from "@/components/theme-switcher";
+import { UserHelpButton } from "@/components/user-help-button";
 
 export function Header() {
   const { user, profile, signOut } = useAuth();
@@ -57,6 +58,7 @@ export function Header() {
 
         {/* User Menu */}
         <div className="flex items-center gap-2">
+          <UserHelpButton />
           <ThemeSwitcher />
           {user ? (
             <div className="flex items-center gap-3">

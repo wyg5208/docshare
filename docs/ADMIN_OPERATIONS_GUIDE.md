@@ -14,8 +14,9 @@
 6. [Managing Tags](#6-managing-tags)
 7. [Managing Users](#7-managing-users)
 8. [Managing Permissions](#8-managing-permissions)
-9. [Analytics & Monitoring](#9-analytics--monitoring)
-10. [Troubleshooting](#10-troubleshooting)
+9. [Site Settings](#9-site-settings)
+10. [Analytics & Monitoring](#10-analytics--monitoring)
+11. [Troubleshooting](#11-troubleshooting)
 
 ---
 
@@ -115,7 +116,12 @@ The admin dashboard provides:
      - ✅ Checked — anyone can view without login
      - ☐ Unchecked — only logged-in users can view
 4. Select relevant **Tags** (click to toggle, multiple allowed)
-5. Click **Upload Document**
+5. **Cover Image** (optional): Set a visual cover for the document card
+   - **None** — default file type icon
+   - **Color** — solid color background with white icon (pick from 12 preset colors)
+   - **Preset** — choose from 12 document-themed Unsplash images
+   - **Custom** — upload your own cover image (max 5MB)
+6. Click **Upload Document**
 
 **Supported file formats:**
 | Type | Formats | Preview |
@@ -136,7 +142,8 @@ The admin dashboard provides:
 3. Select **Edit**
 4. Modify title, description, category, tags, status, or visibility
 5. Optionally upload a **replacement file** (the old file is kept until replaced)
-6. Click **Save Changes**
+6. Optionally update the **Cover Image** (same options as upload: None/Color/Preset/Custom)
+7. Click **Save Changes**
 
 ### Deleting a Document
 
@@ -214,7 +221,30 @@ Navigate to **Admin → Users** to see:
 - Username
 - Role (Admin / Editor / Viewer)
 - Account status (Active / Disabled)
+- **Time Permission** — validity period status with color badge
 - Registration date
+
+### Time Permission Column
+
+The **Time Permission** column displays the user's account validity status using color-coded badges:
+
+| Badge | Color | Meaning |
+|-------|-------|--------|
+| **Permanent** | 🟢 Green | Account is always active, no time limit |
+| **Valid** | 🔵 Blue | Within the valid date range (shows dates) |
+| **Expired** | 🟠 Orange | Past the valid date range (shows dates) |
+| **Disabled** | 🔴 Red | Manually disabled by administrator |
+
+### Setting User Validity Period
+
+1. Click the **calendar icon** (📅) next to a user's Time Permission badge
+2. An inline editor will appear with two options:
+   - **Permanent** — Account has no time restriction
+   - **Time Period** — Specify a start date and end date
+3. For Time Period mode, select the **Valid From** and **Valid Until** dates
+4. Click **Save** to apply
+
+> **Priority Rule:** Manual disable (`is_active = false`) always takes precedence over the validity period. Even if a user is within their valid time range, disabling the account will immediately block their access.
 
 ### Changing User Roles
 
@@ -229,11 +259,21 @@ Navigate to **Admin → Users** to see:
 - Click the **toggle button** to disable an account (user cannot log in)
 - Click again to re-enable the account
 - Disabling does **not** delete the user's data or documents
+- Disabled users who are currently logged in will be forcibly logged out on their next request
+
+### Deleting a User
+
+- Click the **red trash icon** (🗑️) next to the user row
+- Confirm the deletion in the dialog
+- This permanently removes the user's profile record
+
+> **Warning:** User deletion is irreversible. Consider disabling the account instead if you may need to restore access later.
 
 ### How Users Register
 
 - Users can self-register at `https://docshare.wyg.life/register`
 - New users are assigned the **Viewer** role by default
+- New users default to **Permanent** validity (no time restriction)
 - Admins can promote users to Editor or Admin as needed
 
 ---
@@ -244,6 +284,19 @@ Navigate to **Admin → Users** to see:
 
 By default, all **published + public** documents are visible to everyone. The Permissions page allows fine-grained access control for specific users.
 
+### Permission Levels (4-Tier Model)
+
+DocShare uses a hierarchical 4-level permission model. Higher levels automatically include all lower-level capabilities:
+
+| Level | Name | Capabilities |
+|-------|------|--------------|
+| 1 | **Only View** | Online preview only; download button is disabled |
+| 2 | **View & Download** | Preview + download files to device |
+| 3 | **Edit** | All above + modify document content |
+| 4 | **Manage** | Full control including deletion |
+
+> **Example:** A user with "Edit" permission can also view and download, without needing separate lower-level grants.
+
 ### Granting Permissions
 
 1. Navigate to **Admin → Permissions**
@@ -251,10 +304,7 @@ By default, all **published + public** documents are visible to everyone. The Pe
    - **Select User**: Choose the user to grant access
    - **Target Type**: Choose "Document" or "Category"
    - **Select Target**: Pick the specific document or category
-   - **Permission Level**:
-     - `View` — read-only access
-     - `Edit` — can modify content
-     - `Manage` — full control including deletion
+   - **Permission Level**: Select from Only View / View & Download / Edit / Manage
 3. Click **Grant Permission**
 
 ### Revoking Permissions
@@ -264,7 +314,48 @@ By default, all **published + public** documents are visible to everyone. The Pe
 
 ---
 
-## 9. Analytics & Monitoring
+## 9. Site Settings
+
+Navigate to **Admin → Site Settings** (`/admin/site-settings`) to customize the entire site appearance without modifying code or redeploying.
+
+The settings page is organized into **5 tabs**:
+
+### Brand Tab
+
+- **Site Name**: The name displayed in the navigation bar and footer (default: "DocShare")
+- **Site Icon**: Choose from 18 predefined lucide icons for the navigation bar logo
+- A live preview of the navigation bar is shown below the settings
+
+### Hero Tab
+
+- **Hero Title / Highlight / Subtitle**: Edit the main text content on the home page hero section
+- **Hero Background**: Choose from three background modes:
+  - **Gradient** (default) — CSS gradient background
+  - **Preset** — Select from 12 education/campus-themed Unsplash images
+  - **Custom** — Upload your own image (max 5MB, stored in Supabase Storage)
+- When a background image is set, text automatically switches to white with a semi-transparent overlay for readability
+
+### Features Tab
+
+- **Show/Hide Toggle**: Control whether the three feature cards below the hero are visible
+- **Card 1/2/3 Settings**: Edit title, description, and icon for each feature card
+- A live preview grid shows the current appearance
+
+### Sections Tab
+
+- **Categories Visible**: Toggle whether the Categories section is shown on the home page
+
+### Footer Tab
+
+- **Brand Description**: The text displayed in the footer below the site name
+- **Copyright Text**: Custom copyright line (leave empty for auto-generated format: © 2026 SiteName. All rights reserved.)
+- A live footer preview is shown below
+
+> **Note:** Each tab has independent **Save** and **Restore Defaults** buttons. Changes take effect immediately after saving — no redeployment needed.
+
+---
+
+## 10. Analytics & Monitoring
 
 ### Dashboard Statistics
 
@@ -283,8 +374,15 @@ Navigate to **Admin → Analytics** to view:
 - Each entry shows: user, action type, related document, timestamp
 - Filter by activity type using the dropdown:
   - **Login** — user authentication events
-  - **View** — document page visits
-  - **Download** — file download actions
+  - **Logout** — user sign-out events
+  - **Document Views** — document page visits
+  - **Downloads** — file download actions
+
+Each action type has a distinct icon and color in the Admin Dashboard's "Recent Activity" card:
+- Login → green (LogIn icon)
+- Logout → gray (LogOut icon)
+- Document View → blue (Eye icon)
+- Download → orange (Download icon)
 
 ### Using Analytics
 
@@ -294,7 +392,7 @@ Navigate to **Admin → Analytics** to view:
 
 ---
 
-## 10. Troubleshooting
+## 11. Troubleshooting
 
 ### Common Issues
 
@@ -338,7 +436,8 @@ If the Vercel deployment has issues, check:
 | [docshare.wyg.life/search](https://docshare.wyg.life/search) | Search documents |
 | [docshare.wyg.life/bookmarks](https://docshare.wyg.life/bookmarks) | My bookmarks (login required) |
 | [docshare.wyg.life/settings](https://docshare.wyg.life/settings) | Account settings (login required) |
+| [docshare.wyg.life/admin/site-settings](https://docshare.wyg.life/admin/site-settings) | Site appearance settings (admin only) |
 
 ---
 
-*DocShare Administrator Guide — Last updated: June 2026*
+*DocShare Administrator Guide — Last updated: June 25, 2026 (v1.8.1)*

@@ -16,8 +16,9 @@
 8. [Bookmarks (Favorites)](#8-bookmarks-favorites)
 9. [Managing Your Profile](#9-managing-your-profile)
 10. [Changing Your Password](#10-changing-your-password)
-11. [Understanding Document Types & Previews](#11-understanding-document-types--previews)
-12. [FAQ — Frequently Asked Questions](#12-faq--frequently-asked-questions)
+11. [Switching Themes](#11-switching-themes)
+12. [Understanding Document Types & Previews](#12-understanding-document-types--previews)
+13. [FAQ — Frequently Asked Questions](#13-faq--frequently-asked-questions)
 
 ---
 
@@ -243,7 +244,32 @@ Click **Save Changes** to update your profile.
 
 ---
 
-## 11. Understanding Document Types & Previews
+## 11. Switching Themes
+
+DocShare supports **three visual themes** that you can switch between at any time:
+
+| Theme | Description |
+|-------|-------------|
+| **Light** | Clean white background (default) |
+| **Dark Night** | Deep blue-black background with blue accent, easy on the eyes |
+| **Sci-Fi Green** | Matrix-inspired dark green background with neon green accents |
+
+### How to Switch
+
+1. Look for the **theme icon** in the top-right area of the navigation bar (next to your avatar or Sign In button)
+2. Click the icon to open the theme dropdown menu
+3. Select your preferred theme
+4. The page will smoothly transition to the new theme
+
+### Persistence
+
+Your theme choice is saved automatically in your browser. It will persist across page refreshes and browser restarts — no account login required.
+
+> **Note:** Theme preference is stored per browser. If you use multiple browsers or devices, you will need to set the theme on each one.
+
+---
+
+## 12. Understanding Document Types & Previews
 
 | File Type | Formats | Can Preview Online? |
 |-----------|---------|---------------------|
@@ -260,7 +286,7 @@ When a file cannot be previewed online, you will see a file icon with a **Downlo
 
 ---
 
-## 12. FAQ — Frequently Asked Questions
+## 13. FAQ — Frequently Asked Questions
 
 ### Do I need an account to use DocShare?
 
@@ -328,4 +354,4 @@ Contact your system administrator or the DocShare support team.
 
 ---
 
-*DocShare User Guide — Last updated: June 25, 2026 (v1.4.0)*
+*DocShare User Guide — Last updated: June 25, 2026 (v1.8.1)*
