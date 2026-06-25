@@ -109,16 +109,16 @@ export function AdminHelpButton() {
       </button>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl max-h-[85vh] flex flex-col">
           <DialogClose onClose={() => setOpen(false)} />
-          <DialogHeader>
+          <DialogHeader className="shrink-0">
             <DialogTitle className="flex items-center gap-2 text-xl">
               <HelpCircle className="h-5 w-5 text-primary" />
               Admin Panel Help Guide
             </DialogTitle>
           </DialogHeader>
 
-          <div className="space-y-1 mt-2">
+          <div className="space-y-1 mt-2 overflow-y-auto min-h-0 flex-1">
             {HELP_SECTIONS.map((section, index) => {
               const isExpanded = expandedSections.has(index);
               return (
@@ -151,7 +151,7 @@ export function AdminHelpButton() {
             })}
           </div>
 
-          <div className="mt-4 pt-4 border-t text-xs text-muted-foreground text-center">
+          <div className="mt-4 pt-4 border-t text-xs text-muted-foreground text-center shrink-0">
             {APP_NAME} Admin Help &middot; For questions, contact the development team.
           </div>
         </DialogContent>
