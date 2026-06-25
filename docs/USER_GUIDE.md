@@ -179,7 +179,15 @@ The right sidebar shows:
 2. The file will be saved to your device's default download folder
 3. Download counts are tracked for analytics
 
-> **Note:** Some documents may be set to "view only" by the administrator. If you only have **View** permission for a document, the Download button will be greyed out and you will see a tooltip: *"You only have view permission for this document."* Contact your administrator if you need download access.
+### Download Permissions by Role
+
+| Role | Download Behavior |
+|------|------------------|
+| **Admin** | Can download all documents |
+| **Editor** | Can download any document they can see (automatic) |
+| **Viewer** | Needs explicit download permission from the administrator |
+
+> **Note:** If the Download button is greyed out and you see a tooltip *"You only have view permission for this document"*, it means the administrator has granted you **view-only** access. Contact your administrator to request download access.
 
 > **Tip:** Public documents can be browsed without logging in. However, downloading may require appropriate permission level depending on the administrator's configuration.
 
@@ -325,6 +333,14 @@ Some file formats (like Word .doc/.docx) do not support inline preview. You can 
 
 Your **display name** and **avatar** are visible to other users when they view documents you have uploaded. Your email address and bio are private.
 
+### Why can't I see certain documents?
+
+Documents are **private by default**. You can only see:
+- Documents marked as **publicly accessible** by the administrator
+- Documents you have been **explicitly granted access** to (per-document or per-category)
+
+If you need access to a specific document or category, contact your administrator.
+
 ### Why can't I download a document?
 
 The administrator may have set the document to "view only" for your permission level. You can still preview the document online, but the Download button will be disabled. Contact the administrator to request download access.
@@ -354,4 +370,4 @@ Contact your system administrator or the DocShare support team.
 
 ---
 
-*DocShare User Guide — Last updated: June 25, 2026 (v1.8.1)*
+*DocShare User Guide — Last updated: June 25, 2026 (v1.9.0)*

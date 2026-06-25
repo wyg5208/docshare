@@ -282,7 +282,23 @@ The **Time Permission** column displays the user's account validity status using
 
 ### Understanding Permissions
 
-By default, all **published + public** documents are visible to everyone. The Permissions page allows fine-grained access control for specific users.
+DocShare uses a **"Role Baseline + Explicit Grant"** permission model:
+
+- **Documents are private by default.** Only `is_public = true` documents are visible to all signed-in users.
+- **Roles provide a default baseline** (see below), but do **not** automatically grant visibility to private documents.
+- **Explicit permissions** (granted on this page) open specific documents or categories to specific users.
+
+### Role Baselines
+
+Each role has a default permission baseline. The Permissions page displays a **Role Baseline Reference** card at the top for quick reference:
+
+| Role | Default Visibility | Default Download | Description |
+|------|-------------------|-----------------|-------------|
+| **Admin** | All documents | All documents | Full access — bypasses all checks |
+| **Editor** | Only public docs | Can download any doc they can see | Visibility still requires explicit grant; but once visible, download is automatic |
+| **Viewer** | Only public docs | None | No default access — needs explicit permission grant for everything |
+
+> **Key Point:** An Editor can see a private document **only if** they have been explicitly granted access (per-document or per-category). However, once they can see it, they can automatically download it — no separate download permission needed.
 
 ### Permission Levels (4-Tier Model)
 
@@ -300,17 +316,48 @@ DocShare uses a hierarchical 4-level permission model. Higher levels automatical
 ### Granting Permissions
 
 1. Navigate to **Admin → Permissions**
-2. In the grant form:
-   - **Select User**: Choose the user to grant access
+2. In the **Grant Permission** form:
+   - **User**: Choose the user — users are grouped by role (Editors / Viewers / Admins) for easy selection
    - **Target Type**: Choose "Document" or "Category"
    - **Select Target**: Pick the specific document or category
    - **Permission Level**: Select from Only View / View & Download / Edit / Manage
-3. Click **Grant Permission**
+3. Click **Grant**
+
+> **UPSERT behavior:** If a permission already exists for the same user + target, the permission level is **updated** (not duplicated). You can safely re-grant with a different level to change it.
+
+> **Category shortcut:** Granting access to a **Category** applies to all documents within that category — no need to grant per-document.
+
+### Permission Preview
+
+When you select a user in the Grant form, a **Permission Preview** panel appears below, showing:
+- The user's role and baseline
+- A table of all documents the user has effective access to
+- The effective permission level for each document
+- The **source** of each permission (direct grant, category grant, public flag, or role baseline)
+
+This helps you understand the user's current access before making changes.
+
+### Active Permissions List
+
+The **Active Permissions** section groups all explicit permissions by user:
+- Click a user row to **expand/collapse** their permission entries
+- Each entry shows the target (document or category), permission level, and type badge
+- **Conflict/override hints** appear when:
+  - A document permission is **redundant** because the category already grants equal or higher access
+  - A document permission **overrides** a lower category-level grant
 
 ### Revoking Permissions
 
-- Find the permission entry in the list
-- Click the **Delete** button to revoke
+- Expand the user's permission group
+- Click the **trash icon** (🗑️) next to the permission entry
+- The permission is removed immediately
+
+### Audit Trail
+
+All permission changes (grant and revoke) are automatically logged in the **Activity Log** (Admin → Analytics). Each log entry records:
+- Who performed the action (admin user)
+- What was changed (target user, target document/category, permission level)
+- When it happened
 
 ---
 
@@ -440,4 +487,4 @@ If the Vercel deployment has issues, check:
 
 ---
 
-*DocShare Administrator Guide — Last updated: June 25, 2026 (v1.8.1)*
+*DocShare Administrator Guide — Last updated: June 25, 2026 (v1.9.0)*

@@ -56,13 +56,11 @@ export default async function DocumentPage({ params }: DocumentPageProps) {
   const tags = documentTags?.flatMap((dt) => dt.tags) || [];
 
   // Check if current user can download this document
-  // Admin and document uploader always can download
-  // Otherwise, check permission level >= 'download'
+  // Uses RPC to call has_document_permission() for unified permission logic
   const user = currentUser;
   let canDownload = false;
 
   if (user) {
-    // Check if user is admin
     const { data: profile } = await supabase
       .from("profiles")
       .select("role")
@@ -71,29 +69,17 @@ export default async function DocumentPage({ params }: DocumentPageProps) {
 
     if (profile?.role === "admin" || document.uploaded_by === user.id) {
       canDownload = true;
-    } else if (document.is_public) {
-      // Public docs only grant 'view' level, NOT download
-      // Check if user has explicit download+ permission
-      const { data: perms } = await supabase
-        .from("permissions")
-        .select("permission")
-        .eq("user_id", user.id)
-        .or(`document_id.eq.${document.id},category_id.eq.${document.category_id}`);
-
-      const permLevels: Record<string, number> = { view: 1, download: 2, edit: 3, manage: 4 };
-      const maxLevel = perms?.reduce((max, p) => Math.max(max, permLevels[p.permission] || 0), 0) || 0;
-      canDownload = maxLevel >= 2;
+    } else if (profile?.role === "editor") {
+      // Editor role: baseline grants download on any document they can see
+      canDownload = true;
     } else {
-      // Private doc: check explicit permissions
-      const { data: perms } = await supabase
-        .from("permissions")
-        .select("permission")
-        .eq("user_id", user.id)
-        .or(`document_id.eq.${document.id},category_id.eq.${document.category_id}`);
-
-      const permLevels: Record<string, number> = { view: 1, download: 2, edit: 3, manage: 4 };
-      const maxLevel = perms?.reduce((max, p) => Math.max(max, permLevels[p.permission] || 0), 0) || 0;
-      canDownload = maxLevel >= 2;
+      // Viewer: call database function for unified permission check
+      // (covers direct perms + group perms + category perms + group category perms)
+      const { data: hasDownload } = await supabase.rpc('has_document_permission', {
+        doc_id: document.id,
+        required_perm: 'download'
+      });
+      canDownload = hasDownload === true;
     }
   }
 
