@@ -124,7 +124,7 @@ export default function LoginPage() {
       <form onSubmit={handleLogin}>
         <CardContent className="space-y-4">
           {accountMessage && (
-            <div className="flex items-start gap-3 p-3 rounded-lg bg-amber-50 border border-amber-200 text-amber-800 dark:bg-amber-950/30 dark:border-amber-800 dark:text-amber-200">
+            <div className="flex items-start gap-3 p-3 rounded-lg bg-amber-50 border border-amber-200 text-amber-800 dark:bg-amber-950/30 dark:border-amber-800 dark:text-amber-200 matrix:bg-amber-950/30 matrix:border-amber-800 matrix:text-amber-200">
               <AlertTriangle className="h-5 w-5 mt-0.5 flex-shrink-0" />
               <p className="text-sm">{accountMessage}</p>
             </div>

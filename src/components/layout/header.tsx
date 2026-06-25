@@ -13,6 +13,7 @@ import { Menu, X, LayoutDashboard } from "lucide-react";
 import { useState } from "react";
 import { useSiteSettings } from "@/components/site-settings-provider";
 import { DynamicIcon } from "@/lib/dynamic-icon";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 
 export function Header() {
   const { user, profile, signOut } = useAuth();
@@ -56,6 +57,7 @@ export function Header() {
 
         {/* User Menu */}
         <div className="flex items-center gap-2">
+          <ThemeSwitcher />
           {user ? (
             <div className="flex items-center gap-3">
               {profile?.role === "admin" && (

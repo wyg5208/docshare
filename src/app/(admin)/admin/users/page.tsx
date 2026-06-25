@@ -137,17 +137,17 @@ export default function AdminUsersPage() {
   };
 
   const getValidityStatus = (user: Profile) => {
-    if (!user.is_active) return { label: "Disabled", color: "text-red-600 bg-red-50 border-red-200" };
-    if (!user.valid_from && !user.valid_until) return { label: "Permanent", color: "text-green-600 bg-green-50 border-green-200" };
+    if (!user.is_active) return { label: "Disabled", color: "text-red-600 bg-red-50 border-red-200 dark:text-red-400 dark:bg-red-900/30 dark:border-red-800 matrix:text-red-400 matrix:bg-red-900/30 matrix:border-red-800" };
+    if (!user.valid_from && !user.valid_until) return { label: "Permanent", color: "text-green-600 bg-green-50 border-green-200 dark:text-green-400 dark:bg-green-900/30 dark:border-green-800 matrix:text-green-400 matrix:bg-green-900/30 matrix:border-green-800" };
 
     const now = new Date();
     const from = user.valid_from ? new Date(user.valid_from) : null;
     const until = user.valid_until ? new Date(user.valid_until) : null;
 
     if ((from && now < from) || (until && now > until)) {
-      return { label: "Expired", color: "text-orange-600 bg-orange-50 border-orange-200" };
+      return { label: "Expired", color: "text-orange-600 bg-orange-50 border-orange-200 dark:text-orange-400 dark:bg-orange-900/30 dark:border-orange-800 matrix:text-orange-400 matrix:bg-orange-900/30 matrix:border-orange-800" };
     }
-    return { label: "Valid", color: "text-blue-600 bg-blue-50 border-blue-200" };
+    return { label: "Valid", color: "text-blue-600 bg-blue-50 border-blue-200 dark:text-blue-400 dark:bg-blue-900/30 dark:border-blue-800 matrix:text-blue-400 matrix:bg-blue-900/30 matrix:border-blue-800" };
   };
 
   const formatDate = (dateStr: string | null) => {

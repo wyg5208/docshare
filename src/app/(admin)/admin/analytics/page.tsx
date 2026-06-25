@@ -66,10 +66,10 @@ export default function AdminAnalyticsPage() {
   };
 
   const actionColors = {
-    login: "bg-green-100 text-green-600",
-    logout: "bg-gray-100 text-gray-600",
-    document_view: "bg-blue-100 text-blue-600",
-    document_download: "bg-orange-100 text-orange-600",
+    login: "bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400 matrix:bg-green-900/30 matrix:text-green-400",
+    logout: "bg-gray-100 text-gray-600 dark:bg-gray-800/50 dark:text-gray-400 matrix:bg-gray-800/50 matrix:text-gray-400",
+    document_view: "bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 matrix:bg-blue-900/30 matrix:text-blue-400",
+    document_download: "bg-orange-100 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400 matrix:bg-orange-900/30 matrix:text-orange-400",
   };
 
   return (
@@ -83,7 +83,7 @@ export default function AdminAnalyticsPage() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <Card>
           <CardContent className="p-4 flex items-center gap-3">
-            <div className="rounded-full bg-blue-50 p-2 text-blue-500">
+            <div className="rounded-full bg-blue-50 p-2 text-blue-500 dark:bg-blue-900/30 dark:text-blue-400 matrix:bg-blue-900/30 matrix:text-blue-400">
               <Eye className="h-5 w-5" />
             </div>
             <div>
@@ -94,7 +94,7 @@ export default function AdminAnalyticsPage() {
         </Card>
         <Card>
           <CardContent className="p-4 flex items-center gap-3">
-            <div className="rounded-full bg-orange-50 p-2 text-orange-500">
+            <div className="rounded-full bg-orange-50 p-2 text-orange-500 dark:bg-orange-900/30 dark:text-orange-400 matrix:bg-orange-900/30 matrix:text-orange-400">
               <Download className="h-5 w-5" />
             </div>
             <div>
@@ -105,7 +105,7 @@ export default function AdminAnalyticsPage() {
         </Card>
         <Card>
           <CardContent className="p-4 flex items-center gap-3">
-            <div className="rounded-full bg-green-50 p-2 text-green-500">
+            <div className="rounded-full bg-green-50 p-2 text-green-500 dark:bg-green-900/30 dark:text-green-400 matrix:bg-green-900/30 matrix:text-green-400">
               <LogIn className="h-5 w-5" />
             </div>
             <div>
@@ -116,7 +116,7 @@ export default function AdminAnalyticsPage() {
         </Card>
         <Card>
           <CardContent className="p-4 flex items-center gap-3">
-            <div className="rounded-full bg-purple-50 p-2 text-purple-500">
+            <div className="rounded-full bg-purple-50 p-2 text-purple-500 dark:bg-purple-900/30 dark:text-purple-400 matrix:bg-purple-900/30 matrix:text-purple-400">
               <Calendar className="h-5 w-5" />
             </div>
             <div>

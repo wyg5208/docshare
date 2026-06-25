@@ -50,8 +50,8 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
             key={t.id}
             className={cn(
               "flex items-center gap-2 rounded-lg border bg-background p-4 shadow-lg animate-in slide-in-from-bottom-5",
-              t.type === "error" && "border-red-200",
-              t.type === "success" && "border-green-200"
+              t.type === "error" && "border-red-200 dark:border-red-800 matrix:border-red-800",
+              t.type === "success" && "border-green-200 dark:border-green-800 matrix:border-green-800"
             )}
           >
             {icons[t.type]}
