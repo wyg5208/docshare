@@ -141,6 +141,7 @@ export default function AdminAnalyticsPage() {
           >
             <option value="">All Actions</option>
             <option value="login">Login</option>
+            <option value="logout">Logout</option>
             <option value="document_view">Document Views</option>
             <option value="document_download">Downloads</option>
           </Select>

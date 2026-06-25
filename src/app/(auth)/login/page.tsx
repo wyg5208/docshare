@@ -98,6 +98,7 @@ export default function LoginPage() {
 
     // Log the login
     await supabase.from("access_logs").insert({
+      user_id: user!.id,
       action: "login",
       metadata: { method: "email" },
     });

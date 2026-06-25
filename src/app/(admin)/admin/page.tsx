@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Files, Users, Eye, Download, Activity } from "lucide-react";
+import { Files, Users, Eye, Download, Activity, LogIn, LogOut } from "lucide-react";
 
 export default async function AdminDashboard() {
   const supabase = await createClient();
@@ -83,12 +83,18 @@ export default async function AdminDashboard() {
                     <div className={`rounded-full p-1.5 ${
                       log.action === "login"
                         ? "bg-green-100 text-green-600"
+                        : log.action === "logout"
+                        ? "bg-gray-100 text-gray-600"
                         : log.action === "document_view"
                         ? "bg-blue-100 text-blue-600"
                         : "bg-orange-100 text-orange-600"
                     }`}>
                       {log.action === "login" ? (
-                        <Users className="h-3 w-3" />
+                        <LogIn className="h-3 w-3" />
+                      ) : log.action === "logout" ? (
+                        <LogOut className="h-3 w-3" />
+                      ) : log.action === "document_download" ? (
+                        <Download className="h-3 w-3" />
                       ) : (
                         <Eye className="h-3 w-3" />
                       )}

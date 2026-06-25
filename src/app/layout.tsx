@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AuthProvider } from "@/components/auth-provider";
+import { SiteSettingsProvider } from "@/components/site-settings-provider";
 import { APP_NAME, APP_DESCRIPTION } from "@/lib/constants";
 
 const inter = Inter({
@@ -45,7 +46,9 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            <SiteSettingsProvider>{children}</SiteSettingsProvider>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

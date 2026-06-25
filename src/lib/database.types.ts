@@ -109,6 +109,7 @@ export interface Database {
           view_count: number;
           download_count: number;
           thumbnail_url: string | null;
+          cover_color: string | null;
           search_vector: unknown;
           uploaded_by: string | null;
           created_at: string;
@@ -129,6 +130,7 @@ export interface Database {
           view_count?: number;
           download_count?: number;
           thumbnail_url?: string | null;
+          cover_color?: string | null;
           search_vector?: unknown;
           uploaded_by?: string | null;
           created_at?: string;
@@ -149,6 +151,7 @@ export interface Database {
           view_count?: number;
           download_count?: number;
           thumbnail_url?: string | null;
+          cover_color?: string | null;
           search_vector?: unknown;
           uploaded_by?: string | null;
           created_at?: string;

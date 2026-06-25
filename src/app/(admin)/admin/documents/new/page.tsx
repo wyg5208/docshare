@@ -16,6 +16,8 @@ import { slugify, formatBytes } from "@/lib/utils";
 import { ALL_ACCEPTED_TYPES } from "@/lib/constants";
 import type { Category, Tag } from "@/lib/types";
 import { useEffect } from "react";
+import { ImageUploadPicker } from "@/components/admin/image-upload-picker";
+import { DOCUMENT_COVER_PRESETS, COVER_COLORS } from "@/lib/preset-images";
 
 export default function NewDocumentPage() {
   const router = useRouter();
@@ -34,6 +36,11 @@ export default function NewDocumentPage() {
   const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
+
+  // Cover image state
+  const [coverMode, setCoverMode] = useState<"none" | "color" | "preset" | "custom">("none");
+  const [coverColor, setCoverColor] = useState("");
+  const [coverImageUrl, setCoverImageUrl] = useState("");
 
   const [categories, setCategories] = useState<Category[]>([]);
   const [tags, setTags] = useState<Tag[]>([]);
@@ -120,6 +127,8 @@ export default function NewDocumentPage() {
           status,
           is_public: isPublic,
           uploaded_by: user.id,
+          thumbnail_url: coverMode === "preset" || coverMode === "custom" ? coverImageUrl || null : null,
+          cover_color: coverMode === "color" ? coverColor || null : null,
         })
         .select()
         .single();
@@ -197,6 +206,33 @@ export default function NewDocumentPage() {
               className="hidden"
               accept={ALL_ACCEPTED_TYPES.join(",")}
               onChange={handleFileSelect}
+            />
+          </CardContent>
+        </Card>
+
+        {/* Cover Image */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Cover Image</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ImageUploadPicker
+              label=""
+              value={coverImageUrl}
+              onChange={setCoverImageUrl}
+              mode={coverMode}
+              onModeChange={(m) => {
+                setCoverMode(m);
+                if (m === "none") {
+                  setCoverColor("");
+                  setCoverImageUrl("");
+                }
+              }}
+              presets={DOCUMENT_COVER_PRESETS}
+              colors={COVER_COLORS}
+              colorValue={coverColor}
+              onColorChange={setCoverColor}
+              uploadPath="uploads/covers"
             />
           </CardContent>
         </Card>

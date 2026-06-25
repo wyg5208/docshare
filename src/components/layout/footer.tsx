@@ -1,8 +1,15 @@
+"use client";
+
 import Link from "next/link";
 import { APP_NAME } from "@/lib/constants";
-import { FileText } from "lucide-react";
+import { useSiteSettings } from "@/components/site-settings-provider";
+import { DynamicIcon } from "@/lib/dynamic-icon";
 
 export function Footer() {
+  const { settings } = useSiteSettings();
+  const displayName = settings.site_name || APP_NAME;
+  const year = new Date().getFullYear();
+
   return (
     <footer className="border-t bg-background">
       <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
@@ -10,11 +17,11 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-3">
-              <FileText className="h-5 w-5 text-primary" />
-              <span className="text-lg font-bold">{APP_NAME}</span>
+              <DynamicIcon name={settings.site_icon} className="h-5 w-5 text-primary" />
+              <span className="text-lg font-bold">{displayName}</span>
             </Link>
             <p className="text-sm text-muted-foreground max-w-sm">
-              A modern document publishing and sharing platform. Upload, organize, and share your documents with ease.
+              {settings.footer_description}
             </p>
           </div>
 
@@ -39,7 +46,7 @@ export function Footer() {
 
         <div className="mt-8 pt-8 border-t text-center">
           <p className="text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} {APP_NAME}. All rights reserved.
+            {settings.footer_copyright || `\u00A9 ${year} ${displayName}. All rights reserved.`}
           </p>
         </div>
       </div>

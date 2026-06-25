@@ -14,6 +14,8 @@ import { Upload, X, Loader2, File } from "lucide-react";
 import { formatBytes } from "@/lib/utils";
 import { ALL_ACCEPTED_TYPES } from "@/lib/constants";
 import type { Category, Tag } from "@/lib/types";
+import { ImageUploadPicker } from "@/components/admin/image-upload-picker";
+import { DOCUMENT_COVER_PRESETS, COVER_COLORS } from "@/lib/preset-images";
 
 export default function EditDocumentPage() {
   const router = useRouter();
@@ -32,6 +34,11 @@ export default function EditDocumentPage() {
   const [status, setStatus] = useState<"draft" | "published">("published");
   const [isPublic, setIsPublic] = useState(false);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
+  // Cover image state
+  const [coverMode, setCoverMode] = useState<"none" | "color" | "preset" | "custom">("none");
+  const [coverColor, setCoverColor] = useState("");
+  const [coverImageUrl, setCoverImageUrl] = useState("");
 
   const [newFile, setNewFile] = useState<File | null>(null);
   const [existingFile, setExistingFile] = useState<{
@@ -71,6 +78,17 @@ export default function EditDocumentPage() {
         setStatus(doc.status as "draft" | "published");
         setIsPublic(doc.is_public);
         setExistingFile({ name: doc.file_name, type: doc.file_type, size: doc.file_size });
+
+        // Restore cover image state
+        if (doc.thumbnail_url) {
+          setCoverMode("custom"); // treat any existing URL as custom
+          setCoverImageUrl(doc.thumbnail_url);
+        } else if (doc.cover_color) {
+          setCoverMode("color");
+          setCoverColor(doc.cover_color);
+        } else {
+          setCoverMode("none");
+        }
 
         if (docTags) {
           setSelectedTags(docTags.map((dt: { tag_id: string }) => dt.tag_id));
@@ -116,6 +134,11 @@ export default function EditDocumentPage() {
         status,
         is_public: isPublic,
         updated_at: new Date().toISOString(),
+        thumbnail_url:
+          coverMode === "preset" || coverMode === "custom"
+            ? coverImageUrl || null
+            : null,
+        cover_color: coverMode === "color" ? coverColor || null : null,
       };
 
       // Upload new file if selected
@@ -234,6 +257,33 @@ export default function EditDocumentPage() {
                 onChange={handleFileSelect}
               />
             </div>
+          </CardContent>
+        </Card>
+
+        {/* Cover Image */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Cover Image</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ImageUploadPicker
+              label=""
+              value={coverImageUrl}
+              onChange={setCoverImageUrl}
+              mode={coverMode}
+              onModeChange={(m) => {
+                setCoverMode(m);
+                if (m === "none") {
+                  setCoverColor("");
+                  setCoverImageUrl("");
+                }
+              }}
+              presets={DOCUMENT_COVER_PRESETS}
+              colors={COVER_COLORS}
+              colorValue={coverColor}
+              onColorChange={setCoverColor}
+              uploadPath="uploads/covers"
+            />
           </CardContent>
         </Card>
 

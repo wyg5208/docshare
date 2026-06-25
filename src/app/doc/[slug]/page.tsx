@@ -31,6 +31,22 @@ export default async function DocumentPage({ params }: DocumentPageProps) {
     notFound();
   }
 
+  // Log document view & increment view count
+  const { data: { user: currentUser } } = await supabase.auth.getUser();
+  if (currentUser) {
+    await Promise.all([
+      supabase.from("access_logs").insert({
+        user_id: currentUser.id,
+        action: "document_view" as const,
+        document_id: document.id,
+      }),
+      supabase
+        .from("documents")
+        .update({ view_count: (document.view_count || 0) + 1 })
+        .eq("id", document.id),
+    ]);
+  }
+
   // Fetch tags for this document
   const { data: documentTags } = await supabase
     .from("document_tags")
@@ -42,7 +58,7 @@ export default async function DocumentPage({ params }: DocumentPageProps) {
   // Check if current user can download this document
   // Admin and document uploader always can download
   // Otherwise, check permission level >= 'download'
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = currentUser;
   let canDownload = false;
 
   if (user) {

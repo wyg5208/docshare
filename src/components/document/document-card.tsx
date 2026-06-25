@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { FileIcon } from "@/components/document/file-icon";
-import { formatBytes, formatDate, getFileTypeCategory } from "@/lib/utils";
+import { formatBytes, formatDate } from "@/lib/utils";
 import { Eye } from "lucide-react";
 import type { Document } from "@/lib/types";
 
@@ -13,21 +13,37 @@ interface DocumentCardProps {
 }
 
 export function DocumentCard({ document }: DocumentCardProps) {
-  const typeCategory = getFileTypeCategory(document.file_type);
+  const hasCoverImage = !!document.thumbnail_url;
+  const hasCoverColor = !!document.cover_color && !hasCoverImage;
 
   return (
     <Link href={`/doc/${document.slug}`}>
       <Card className="group h-full transition-all hover:shadow-md hover:border-primary/20">
         {/* Thumbnail/Icon Area */}
-        <div className="aspect-video bg-muted/50 rounded-t-xl flex items-center justify-center overflow-hidden">
-          {typeCategory === "image" && document.thumbnail_url ? (
+        <div
+          className={`aspect-video rounded-t-xl flex items-center justify-center overflow-hidden ${
+            !hasCoverImage && !hasCoverColor ? "bg-muted/50" : ""
+          }`}
+          style={
+            hasCoverColor
+              ? { backgroundColor: document.cover_color! }
+              : undefined
+          }
+        >
+          {hasCoverImage ? (
             <img
-              src={document.thumbnail_url}
+              src={document.thumbnail_url!}
               alt={document.title}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+              loading="lazy"
             />
           ) : (
-            <FileIcon type={document.file_type} className="h-12 w-12 text-muted-foreground" />
+            <FileIcon
+              type={document.file_type}
+              className={`h-12 w-12 ${
+                hasCoverColor ? "text-white/90" : "text-muted-foreground"
+              }`}
+            />
           )}
         </div>
 

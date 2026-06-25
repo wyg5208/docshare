@@ -9,13 +9,16 @@ import { DropdownMenu, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuLabe
 import { SearchBar } from "@/components/search/search-bar";
 import { APP_NAME, NAV_ITEMS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import { FileText, Menu, X, LayoutDashboard } from "lucide-react";
+import { Menu, X, LayoutDashboard } from "lucide-react";
 import { useState } from "react";
+import { useSiteSettings } from "@/components/site-settings-provider";
+import { DynamicIcon } from "@/lib/dynamic-icon";
 
 export function Header() {
   const { user, profile, signOut } = useAuth();
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { settings } = useSiteSettings();
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -23,8 +26,8 @@ export function Header() {
         {/* Logo */}
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-2">
-            <FileText className="h-6 w-6 text-primary" />
-            <span className="text-xl font-bold">{APP_NAME}</span>
+            <DynamicIcon name={settings.site_icon} className="h-6 w-6 text-primary" />
+            <span className="text-xl font-bold">{settings.site_name || APP_NAME}</span>
           </Link>
 
           {/* Desktop Navigation */}
