@@ -64,6 +64,16 @@ Once logged in, you will see your avatar and display name in the top-right corne
 - **Settings** — your profile and security settings
 - **Sign Out** — log out of your account
 
+### Account Validity
+
+Your account may have a **validity period** set by the administrator:
+- **Permanent** — Your account is always active with no time limit.
+- **Time Period** — Your account is only active during a specific date range (e.g., June 27 – June 30).
+
+If your account has expired or been disabled, you will see a warning message on the login page with instructions to contact the administrator.
+
+> **Note:** Even if your account is within the valid period, the administrator can manually disable it at any time. In that case, you will also be unable to log in until re-enabled.
+
 ### Forgot Your Password?
 
 1. On the login page, click **Forgot your password?**
@@ -168,7 +178,9 @@ The right sidebar shows:
 2. The file will be saved to your device's default download folder
 3. Download counts are tracked for analytics
 
-> **Note:** You do not need to be logged in to download public documents.
+> **Note:** Some documents may be set to "view only" by the administrator. If you only have **View** permission for a document, the Download button will be greyed out and you will see a tooltip: *"You only have view permission for this document."* Contact your administrator if you need download access.
+
+> **Tip:** Public documents can be browsed without logging in. However, downloading may require appropriate permission level depending on the administrator's configuration.
 
 ---
 
@@ -252,7 +264,8 @@ When a file cannot be previewed online, you will see a file icon with a **Downlo
 
 ### Do I need an account to use DocShare?
 
-No. You can browse and download all **public** documents without an account. However, you need to log in to:
+No. You can browse **public** documents without an account. However, you need to log in to:
+- Download documents (if download permission is required)
 - Bookmark documents
 - Access private (non-public) documents
 - Have your activity tracked for personalized features
@@ -286,6 +299,14 @@ Some file formats (like Word .doc/.docx) do not support inline preview. You can 
 
 Your **display name** and **avatar** are visible to other users when they view documents you have uploaded. Your email address and bio are private.
 
+### Why can't I download a document?
+
+The administrator may have set the document to "view only" for your permission level. You can still preview the document online, but the Download button will be disabled. Contact the administrator to request download access.
+
+### My account says "expired" — what should I do?
+
+Your account has a validity period set by the administrator. Once the period expires, you will be automatically logged out and unable to log in again. Please contact the administrator to extend your access.
+
 ### How do I report a problem or request a feature?
 
 Contact your system administrator or the DocShare support team.
@@ -307,4 +328,4 @@ Contact your system administrator or the DocShare support team.
 
 ---
 
-*DocShare User Guide — Last updated: June 2026*
+*DocShare User Guide — Last updated: June 25, 2026 (v1.4.0)*

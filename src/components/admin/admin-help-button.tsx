@@ -50,10 +50,13 @@ const HELP_SECTIONS: HelpSection[] = [
   {
     title: "Managing Users",
     content: [
-      "View all registered users with their roles, status, and registration date.",
+      "View all registered users with their roles, status, registration date, and time permission.",
       "Change a user's role using the dropdown: Admin (full access), Editor (upload/manage docs), or Viewer (read-only).",
-      "Disable a user account to prevent login without deleting their data.",
-      "Re-enable a disabled user at any time by toggling their status back to active.",
+      "Deactivate a user account to prevent login without deleting their data. Re-enable at any time.",
+      "Permanently delete a user by clicking the red trash icon — this physically removes the account and cannot be undone.",
+      "The 'Time Permission' column shows validity status with color badges: Green (Permanent), Blue (Valid with date range), Orange (Expired), Red (Disabled).",
+      "Click the calendar icon to set a user's validity period: choose 'Permanent' for unlimited access, or 'Time Period' to specify start and end dates.",
+      "Manual disable (Deactivate) always takes priority over the time period setting.",
     ],
   },
   {
@@ -62,7 +65,9 @@ const HELP_SECTIONS: HelpSection[] = [
       "By default, all published public documents are visible to everyone.",
       "Use the Permissions page to grant specific users access to individual documents or entire categories.",
       "Select a user, choose the target type (Document or Category), pick the specific item, and set the permission level.",
-      "Permission levels: View (read-only), Edit (modify content), Manage (full control including deletion).",
+      "Permission levels (hierarchical — higher levels include all lower): Only View → View & Download → Edit → Manage.",
+      "'Only View' allows online preview but blocks downloading. 'View & Download' enables both preview and file download.",
+      "'Edit' allows modifying document content. 'Manage' grants full control including deletion.",
       "Remove permissions by clicking the delete button on any permission entry.",
     ],
   },
