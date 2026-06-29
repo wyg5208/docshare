@@ -105,7 +105,7 @@ export default async function DocumentPage({ params }: DocumentPageProps) {
             </div>
 
             {/* Preview */}
-            <div className="border rounded-xl overflow-hidden bg-muted/20 mb-6">
+            <div className="border rounded-xl overflow-auto bg-muted/20 mb-6">
               <DocumentPreview
                 type={typeCategory}
                 fileUrl={fileUrl}
