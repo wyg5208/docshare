@@ -2,8 +2,6 @@
 
 import dynamic from "next/dynamic";
 import { FileIcon } from "./file-icon";
-import { Button } from "@/components/ui/button";
-import { Download } from "lucide-react";
 
 const ImageViewer = dynamic(() => import("./image-viewer"), { ssr: false });
 const VideoPlayer = dynamic(() => import("./video-player"), { ssr: false });
@@ -51,12 +49,7 @@ export function DocumentPreview({ type, fileUrl, fileName, fileType }: DocumentP
           <FileIcon type={fileType} className="h-16 w-16 mb-4 opacity-50" />
           <p className="text-sm">Preview not available for this file type</p>
           <p className="text-xs mt-1">{fileType}</p>
-          <a href={fileUrl} download={fileName} className="mt-4">
-            <Button variant="outline" className="gap-2">
-              <Download className="h-4 w-4" />
-              Download to view
-            </Button>
-          </a>
+          <p className="text-xs mt-3 text-muted-foreground/70">Please use the Download button above if you have download permission.</p>
         </div>
       );
   }
